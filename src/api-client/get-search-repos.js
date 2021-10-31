@@ -1,6 +1,6 @@
 import { request } from "@octokit/request";
 
-async function getRepositories(opts = {}) {
+async function getSearchedRepositories(opts = {}) {
   const {
     word,
     language = '',
@@ -16,6 +16,8 @@ async function getRepositories(opts = {}) {
   });
 
   console.log('response', response);
+  // response.data.items = [{id, name, description, language, stargazers_count, html_url, owner: {id, login} }]
+  // response.status
 }
 
-export default getRepositories;
+export default getSearchedRepositories;

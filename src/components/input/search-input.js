@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import getRepositories from '../../api/search-repos/get';
+import getSearchedRepositories from '../../api-client/get-search-repos';
 
 class SearchInput extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class SearchInput extends Component {
       word: this.state.value
     };
 
-    getRepositories(opts);
+    getSearchedRepositories(opts);
   }
 
   render() {
