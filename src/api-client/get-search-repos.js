@@ -7,17 +7,20 @@ async function getSearchedRepositories(opts = {}) {
     sort = 'best-match'
   } = opts;
 
-  const assembledString = opts.word ? `${word}+language:${language}&sort=${sort}` : 'q';
+  if (!opts.word) throw 'Input is required for the search.' // TODO
+
+  const queryString = `${word}+language:${language}&sort=${sort}`;
 
   const response = await request({
     method: "GET",
     url: "/search/repositories",
-    q: assembledString
+    q: queryString
   });
 
-  console.log('response', response);
   // response.data.items = [{id, name, description, language, stargazers_count, html_url, owner: {id, login} }]
   // response.status
+
+  return response;
 }
 
 export default getSearchedRepositories;

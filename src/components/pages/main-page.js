@@ -1,6 +1,7 @@
 import { Component } from 'react';
 
 import getSearchedRepositories from '../../api-client/get-search-repos';
+import { formatSearchResults } from '../../formatters/format-search-result';
 
 import Button from '../buttons/button';
 import SearchInput from '../inputs/search-input';
@@ -12,21 +13,27 @@ import SearchInput from '../inputs/search-input';
 class MainPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchInput: '' };
+    this.state = { searchText: '' };
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
   }
 
-  handleButtonClick(){
+  async handleButtonClick(){
     const opts = {
-      word: this.state.searchInput
+      word: this.state.searchText
     };
 
-    getSearchedRepositories(opts);
+    const { data } = await getSearchedRepositories(opts);
+    const formattedResults = formatSearchResults(data.items);
+    console.log('formattedResults', formattedResults);
+
+    if(formattedResults.length < 1) throw 'No results found. Please enter a new search.'; // TODO
+
+    // send formattedResults to Table
   }
 
   handleSearchInputChange(value) {
-    this.setState({ searchInput: value });
+    this.setState({ searchText: value });
   }
 
   render() {
@@ -35,7 +42,7 @@ class MainPage extends Component {
         <label>Search Github Repositories</label>
         <br></br>
         <SearchInput
-          value={this.state.searchInput}
+          value={this.state.searchText}
           onInputChange={this.handleSearchInputChange}
         ></SearchInput>
         <Button
