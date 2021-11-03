@@ -1,6 +1,7 @@
 import { Component } from "react";
+import Button from '@mui/material/Button';
 
-class Button extends Component {
+class AppButton extends Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -11,12 +12,16 @@ class Button extends Component {
   }
 
   render() {
+    const style = {
+      margin: "12px"
+    };
+
     return (
-      <button onClick={this.handleSubmit}>
+      <Button style={style} variant="contained" onClick={this.handleSubmit}>
         {this.props.label}
-      </button>
+      </Button>
     );
   }
 }
 
-export default Button;
+export default AppButton;

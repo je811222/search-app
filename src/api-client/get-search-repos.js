@@ -7,7 +7,7 @@ async function getSearchedRepositories(opts = {}) {
     sort = 'best-match'
   } = opts;
 
-  if (!opts.word) throw 'Input is required for the search.' // TODO
+  if (!opts.word) throw 'Input is required for the search.';
 
   const queryString = `${word}+language:${language}&sort=${sort}`;
 

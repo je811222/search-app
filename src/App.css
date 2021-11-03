@@ -1,6 +1,5 @@
 .App {
   min-height: 100vh;
-  background-color: #596c92;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -18,8 +17,10 @@
 }
 
 .App-header {
+  background-color: #566d97;
   min-height: 12vh;
   padding-top: 18px;
+  padding-bottom: 18px;
   align-items: center;
   justify-content: center;
 }

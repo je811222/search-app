@@ -1,9 +1,10 @@
 import { Component } from 'react';
+import Alert from '@mui/material/Alert';
 
 import getSearchedRepositories from '../../api-client/get-search-repos';
 import { formatSearchResults } from '../../formatters/format-search-result';
 
-import Button from '../buttons/button';
+import AppButton from '../buttons/app-button';
 import SearchInput from '../inputs/search-input';
 
 // Task:
@@ -13,7 +14,7 @@ import SearchInput from '../inputs/search-input';
 class MainPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchText: '' };
+    this.state = { searchText: '', error: '' };
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
   }
@@ -23,36 +24,60 @@ class MainPage extends Component {
       word: this.state.searchText
     };
 
+    if (!opts.word) {
+      this.setState({ error: 'Input is required for the search' });
+    }
+
     const { data } = await getSearchedRepositories(opts);
     const formattedResults = formatSearchResults(data.items);
     console.log('formattedResults', formattedResults);
 
-    if(formattedResults.length < 1) throw 'No results found. Please enter a new search.'; // TODO
+    if(formattedResults.length < 1) {
+      this.setState({ error: 'No results found. Please enter a new search' })
+    }
 
     // send formattedResults to Table
   }
 
   handleSearchInputChange(value) {
-    this.setState({ searchText: value });
+    this.setState({ searchText: value, error: '' });
+  }
+
+  displayErrorMessage() {
+    return (
+      <Alert severity="error" sx={{ width: '100%' }}>
+        {this.state.error}
+      </Alert>
+    );
   }
 
   render() {
     const labelStyle = {
       fontSize: "20px",
+      margin: "12px"
+    };
+
+    const container = {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center"
     };
 
     return (
       <div>
         <label style={labelStyle}>Search Github Repositories</label>
         <br></br>
-        <SearchInput
-          value={this.state.searchText}
-          onInputChange={this.handleSearchInputChange}
-        ></SearchInput>
-        <Button
-          label="Search"
-          onButtonClick={this.handleButtonClick}
-        ></Button>
+        <div style={container}>
+          <SearchInput
+            value={this.state.searchText}
+            onInputChange={this.handleSearchInputChange}
+          ></SearchInput>
+          <AppButton
+            label="Search"
+            onButtonClick={this.handleButtonClick}
+          ></AppButton>
+        </div>
+        {this.state.error ? this.displayErrorMessage() : ''}
       </div>
     );
   }
