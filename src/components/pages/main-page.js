@@ -37,9 +37,13 @@ class MainPage extends Component {
   }
 
   render() {
+    const labelStyle = {
+      fontSize: "20px",
+    };
+
     return (
       <div>
-        <label>Search Github Repositories</label>
+        <label style={labelStyle}>Search Github Repositories</label>
         <br></br>
         <SearchInput
           value={this.state.searchText}

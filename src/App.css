@@ -1,9 +1,13 @@
 .App {
+  min-height: 100vh;
+  background-color: #596c92;
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 16vmin;
   pointer-events: none;
 }
 
@@ -14,14 +18,18 @@
 }
 
 .App-header {
-  background-color: #596c92;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  min-height: 12vh;
+  padding-top: 18px;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+
+.Main-page {
+  display: flex;
+  flex-direction: column;
+  padding-top: 15px;
+  align-items: center;
+  justify-content: center;
 }
 
 .App-link {
