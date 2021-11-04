@@ -3,8 +3,8 @@ export const formatSearchResult = (result) => {
     id: result.id,
     name: result.name,
     description: result.description,
-    language: result.language,
     stars: result.stargazers_count,
+    language: result.language,
     ownerId: result.owner.id,
     ownerName: result.owner.login,
     url: result.html_url

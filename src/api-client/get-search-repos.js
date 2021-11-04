@@ -7,6 +7,7 @@ async function getSearchedRepositories(opts = {}) {
     sort = 'best-match'
   } = opts;
 
+  // eslint-disable-next-line no-throw-literal
   if (!opts.word) throw 'Input is required for the search.';
 
   const queryString = `${word}+language:${language}&sort=${sort}`;

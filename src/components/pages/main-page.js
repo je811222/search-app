@@ -6,15 +6,42 @@ import { formatSearchResults } from '../../formatters/format-search-result';
 
 import AppButton from '../buttons/app-button';
 import SearchInput from '../inputs/search-input';
+import AppTable from '../tables/app-table';
 
 // Task:
 // results contain: repoName: '', description: '', stars: 0, language: '', owner: ''
 // each result when selected, route to a detailed screen that displays information about the repo
+const TABLE_CONFIG = [
+  {
+    name: 'name',
+    label: 'Name'
+  },
+  {
+    name: 'description',
+    label: 'Description',
+  },
+  {
+    name: 'stars',
+    label: 'Stars'
+  },
+  {
+    name: 'language',
+    label: 'Language'
+  },
+  {
+    name: 'ownerName',
+    label: 'Owner'
+  },
+  {
+    name: 'url',
+    label: 'Detailed'
+  }
+];
 
 class MainPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { searchText: '', error: '' };
+    this.state = { searchText: '', error: '', data: [] };
     this.handleButtonClick = this.handleButtonClick.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
   }
@@ -33,10 +60,10 @@ class MainPage extends Component {
     console.log('formattedResults', formattedResults);
 
     if(formattedResults.length < 1) {
-      this.setState({ error: 'No results found. Please enter a new search' })
+      this.setState({ error: 'No results found. Please enter a new search' });
     }
 
-    // send formattedResults to Table
+    this.setState({ data: formattedResults });
   }
 
   handleSearchInputChange(value) {
@@ -78,6 +105,7 @@ class MainPage extends Component {
           ></AppButton>
         </div>
         {this.state.error ? this.displayErrorMessage() : ''}
+        {this.state.data.length > 1 ? <AppTable data={this.state.data} config={TABLE_CONFIG}></AppTable> : ''}
       </div>
     );
   }
