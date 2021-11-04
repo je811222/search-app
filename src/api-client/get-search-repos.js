@@ -4,18 +4,19 @@ async function getSearchedRepositories(opts = {}) {
   const {
     word,
     language = '',
-    sort = 'best-match'
+    sort
   } = opts;
 
   // eslint-disable-next-line no-throw-literal
   if (!opts.word) throw 'Input is required for the search.';
 
-  const queryString = `${word}+language:${language}&sort=${sort}`;
+  const queryString = `${word}+language:${language}`;
 
   const response = await request({
     method: "GET",
     url: "/search/repositories",
-    q: queryString
+    q: queryString,
+    sort: sort,
   });
 
   // response.data.items = [{id, name, description, language, stargazers_count, html_url, owner: {id, login} }]

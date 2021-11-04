@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import TextField from '@mui/material/TextField';
 
-class SearchInput extends Component {
+class AppTextField extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -19,15 +19,15 @@ class SearchInput extends Component {
     return (
       <TextField
         style={style}
-        label="Search.."
+        label={this.props.label}
         variant="filled"
         type="text"
-        value={this.props.value}
+        value={this.props.inputValue}
         onChange={this.handleChange}
       />
     );
   }
 }
 
-export default SearchInput;
+export default AppTextField;
 
