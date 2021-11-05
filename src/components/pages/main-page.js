@@ -16,27 +16,27 @@ const SORT_ITEMS = ['best-match', 'stars'];
 
 const TABLE_CONFIG = [
   {
-    name: 'name',
+    id: 'name',
     label: 'Name'
   },
   {
-    name: 'description',
+    id: 'description',
     label: 'Description',
   },
   {
-    name: 'stars',
+    id: 'stars',
     label: 'Stars'
   },
   {
-    name: 'language',
+    id: 'language',
     label: 'Language'
   },
   {
-    name: 'ownerName',
+    id: 'ownerName',
     label: 'Owner'
   },
   {
-    name: 'url',
+    id: 'url',
     label: 'Detailed'
   }
 ];
@@ -68,7 +68,7 @@ class MainPage extends Component {
     const formattedResults = formatSearchResults(data.items);
 
     if(formattedResults.length < 1) {
-      this.setState({ language: '', sort: '', error: 'No results found. Please enter a new search' });
+      this.setState({ error: 'No results found. Please enter a new search' });
     }
 
     this.setState({ data: formattedResults });
@@ -102,8 +102,8 @@ class MainPage extends Component {
 
     const container = {
       display: "flex",
-      justifyContent: "center",
-      alignItems: "center"
+      flexDirection: this.props.smallScreen ? "column" : "row",
+      justifyContent: "center"
     };
 
     return (
@@ -112,29 +112,29 @@ class MainPage extends Component {
         <br></br>
         <div style={container}>
           <AppTextField
+            id="search-field"
             label="Search.."
             inputValue={this.state.searchText}
             onInputChange={this.handleSearchInputChange}
           ></AppTextField>
 
-          {this.state.data.length > 1 ?
-            <>
-              <AppTextField
-                label="Language"
-                inputValue={this.state.language}
-                onInputChange={this.handleLanguageInputChange}
-              ></AppTextField>
-              <AppSelect
-                label="Sort"
-                items={SORT_ITEMS}
-                selectValue={this.state.sort}
-                onSelectChange={this.handleSelectChange}
-              ></AppSelect>
-            </>
-            : ''
-          }
+          <AppTextField
+            id="language-field"
+            label="Language"
+            inputValue={this.state.language}
+            onInputChange={this.handleLanguageInputChange}
+          ></AppTextField>
+
+          <AppSelect
+            id="sort-select"
+            label="Sort"
+            items={SORT_ITEMS}
+            selectValue={this.state.sort}
+            onSelectChange={this.handleSelectChange}
+          ></AppSelect>
 
           <AppButton
+            id="search-button"
             label="Search"
             onButtonClick={this.handleButtonClick}
           ></AppButton>
@@ -142,7 +142,11 @@ class MainPage extends Component {
 
         {this.state.error ? this.displayErrorMessage() : ''}
         {this.state.data.length > 1 ?
-          <AppTable data={this.state.data} config={TABLE_CONFIG}></AppTable>
+          <AppTable
+            id="result-table"
+            data={this.state.data}
+            config={TABLE_CONFIG}
+          ></AppTable>
           : ''
         }
       </div>

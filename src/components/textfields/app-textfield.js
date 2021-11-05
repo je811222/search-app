@@ -18,11 +18,13 @@ class AppTextField extends Component {
 
     return (
       <TextField
+        sx={{ minWidth: 150 }}
         style={style}
+        id={this.props.id}
         label={this.props.label}
         variant="filled"
         type="text"
-        value={this.props.inputValue}
+        value={this.props.inputValue || ''}
         onChange={this.handleChange}
       />
     );

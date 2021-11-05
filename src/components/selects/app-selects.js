@@ -5,7 +5,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
-class SearchInput extends Component {
+class AppSelect extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
@@ -21,19 +21,20 @@ class SearchInput extends Component {
     };
 
     return (
-      <FormControl sx={{ minWidth: 200 }} style={style}>
-        <InputLabel>{this.props.label}</InputLabel>
+      <FormControl sx={{ minWidth: 100 }} style={style}>
+        <InputLabel id={this.props.label}>{this.props.label}</InputLabel>
         <Select
+          id={this.props.id}
           value={this.props.selectValue}
           label={this.props.label}
           onChange={this.handleChange}
         >
-          {this.props.items.map(item => (<MenuItem value={item}>{item}</MenuItem>))}
+          {this.props.items.map(item => (<MenuItem key={item} value={item}>{item}</MenuItem>))}
         </Select>
       </FormControl>
     );
   }
 }
 
-export default SearchInput;
+export default AppSelect;
 

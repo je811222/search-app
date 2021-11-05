@@ -12,11 +12,8 @@ class AppTable extends Component {
     return (
       <TableHead>
         <TableRow>
-          {this.props.config.map((col, idx) => {
-            if (idx === 0) return (<TableCell>{col.label}</TableCell>);
-
-            return (<TableCell align="right">{col.label}</TableCell>);
-          })}
+          {this.props.config.map((col, idx) =>
+            (<TableCell>{col.label}</TableCell>))}
         </TableRow>
       </TableHead>
     );
@@ -25,18 +22,21 @@ class AppTable extends Component {
   renderTableContent() {
     return (
       <TableBody>
-        {this.props.data.map(row => (
-          <TableRow
-            key={row.id}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
-            {this.props.config.map((col, idx) => {
-              if (idx === 0) return (<TableCell component="th" scope="row">{row[col.name]}</TableCell>);
+        {this.props.data.map((row, index) => {
+          const rowKey = `row-${index}`;
 
-              return (<TableCell align="right">{row[col.name]}</TableCell>);
-            })}
-          </TableRow>
-        ))}
+          return (
+            <TableRow
+              key={rowKey}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              {this.props.config.map((col, idx) => {
+                const cellKey = `${col.id}-${index}`;
+                return (<TableCell key={cellKey}>{row[col.id]}</TableCell>);
+              })}
+            </TableRow>
+          );
+        })}
       </TableBody>
     );
   }
@@ -44,7 +44,7 @@ class AppTable extends Component {
   render() {
     return (
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table id={this.props.id} sx={{ minWidth: 650 }} aria-label="simple table">
           {this.renderTableHeader()}
           {this.renderTableContent()}
         </Table>

@@ -17,7 +17,12 @@ class AppButton extends Component {
     };
 
     return (
-      <Button style={style} variant="contained" onClick={this.handleSubmit}>
+      <Button
+        id={this.props.id}
+        style={style}
+        variant="contained"
+        onClick={this.handleSubmit}
+      >
         {this.props.label}
       </Button>
     );
