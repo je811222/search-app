@@ -9,9 +9,6 @@ import AppSelect from '../selects/app-selects';
 import AppTable from '../tables/app-table';
 import AppTextField from '../textfields/app-textfield';
 
-// Task:
-// results contain: repoName: '', description: '', stars: 0, language: '', owner: ''
-// each result when selected, route to a detailed screen that displays information about the repo
 const SORT_ITEMS = ['best-match', 'stars'];
 
 const TABLE_CONFIG = [
@@ -34,10 +31,6 @@ const TABLE_CONFIG = [
   {
     id: 'ownerName',
     label: 'Owner'
-  },
-  {
-    id: 'url',
-    label: 'Detailed'
   }
 ];
 
@@ -46,6 +39,7 @@ class MainPage extends Component {
     super(props);
     this.state = { searchText: '', langauge: '', sort: '', error: '', data: [] };
     this.handleButtonClick = this.handleButtonClick.bind(this);
+    this.handleTableRowClick = this.handleTableRowClick.bind(this);
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleSearchInputChange = this.handleSearchInputChange.bind(this);
     this.handleLanguageInputChange = this.handleLanguageInputChange.bind(this);
@@ -72,6 +66,10 @@ class MainPage extends Component {
     }
 
     this.setState({ data: formattedResults });
+  }
+
+  handleTableRowClick(row) {
+    window.location.href = `${row.url}`;
   }
 
   handleSelectChange(value) {
@@ -146,6 +144,7 @@ class MainPage extends Component {
             id="result-table"
             data={this.state.data}
             config={TABLE_CONFIG}
+            onRowClick={this.handleTableRowClick}
           ></AppTable>
           : ''
         }

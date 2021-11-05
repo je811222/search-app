@@ -19,9 +19,6 @@ async function getSearchedRepositories(opts = {}) {
     sort: sort,
   });
 
-  // response.data.items = [{id, name, description, language, stargazers_count, html_url, owner: {id, login} }]
-  // response.status
-
   return response;
 }
 
